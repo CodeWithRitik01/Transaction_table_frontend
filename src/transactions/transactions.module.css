@@ -1,0 +1,78 @@
+table {
+    border-collapse: collapse;
+    background-color:  white;
+}
+
+
+th{
+    border: 2px solid black;
+    margin:0px;
+    height: 30px;
+    width: 200px;
+
+}
+
+td{
+    border: 1px solid black;
+    margin:0px;
+    height: 220px;
+    width: 200px;
+    text-align: center;
+}
+
+.heading{
+    height: 200px;
+    width: 200px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    border-radius: 50%;
+    background-color: white;
+    margin-left:40%;
+    margin-bottom: 30px;
+}
+
+.main{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+   
+}
+
+.transImage{
+    height: 150px;
+    width: 100px;
+}
+
+.image{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.desc{
+    width: 30%;
+}
+
+.mainInputs{
+    height: 40px;
+    width: 200px;
+    border-radius: 30px;
+    background-color: rgb(239, 170, 145);
+    color: black;
+    border: 0px;
+}
+
+.arrangeInputs{
+    display: flex;
+    justify-content: space-evenly;
+    width: 1000px;
+    margin-bottom: 30px;
+}
+
+.footer{
+    display: flex;
+    width: 1400px;
+    justify-content: space-between;
+
+}
