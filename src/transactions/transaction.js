@@ -14,7 +14,6 @@ const DisplayTransactions = () =>{
     const [month, setMonth] = useState("");
 
 
-
     useEffect(() => {
         dispatch(getInitialStateAsync())
  
@@ -55,6 +54,16 @@ const DisplayTransactions = () =>{
          
     }
 
+    
+
+    const handleSearchData = (searchValue) =>{
+        const yo = filteredList.filter((data, key) =>(
+            data.title.includes(searchValue)
+        )) 
+        setFiltered(yo)
+        console.log(yo, "dfsd")
+    }
+
     useEffect(() =>{
         setCurrentPage(page*dataPerPage)
         
@@ -92,7 +101,7 @@ const DisplayTransactions = () =>{
                 <option>December</option>
                 </select>
    
-                <input className={styles.mainInputs} type="text" placeholder="search"/>
+                <input onChange={(e)=>handleSearchData(e.target.value)}  className={styles.mainInputs} type="text" placeholder="search"/>
             </div>
            
 
@@ -114,7 +123,6 @@ const DisplayTransactions = () =>{
                     {displayResult.map((trans, key) => (
                     <tr>
                         <td>{trans._id}
-                            {key+1+currentPage-10}
                         </td>
                         <td>{trans.title}</td>
                         <td className={styles.desc}>{trans.description}</td>
