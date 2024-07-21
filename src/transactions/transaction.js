@@ -7,14 +7,22 @@ const DisplayTransactions = () =>{
 
     const dispatch = useDispatch();
     const {transactions}  = useSelector(transactionSelector);
-
+    const [filteredList, setFiltered ] = useState([]);
     const dataPerPage = 10;
     const [page, setPage] = useState(1);
     const [currentPage, setCurrentPage] = useState(10);
+    const [month, setMonth] = useState("");
+
+
 
     useEffect(() => {
         dispatch(getInitialStateAsync())
-    }, [])
+ 
+    }, [dispatch])
+
+    useEffect(() => {
+        setFiltered(transactions);
+    }, [transactions]);
 
     const handlePrevious = () =>{
         if(page > 1){
@@ -31,11 +39,32 @@ const DisplayTransactions = () =>{
 
     }
 
+    const handleDateData = () =>{
+        if (month) {
+            const filtered = transactions.filter((trans) => {
+                const monthNumber = trans.dateOfSale.split("-")[1];
+                const date = new Date();
+                date.setMonth(monthNumber - 1);
+                const monthName = date.toLocaleString('en', { month: 'long' });
+                return monthName === month;
+            });
+            setFiltered(filtered);
+        } else {
+            setFiltered(transactions);
+        }
+         
+    }
+
     useEffect(() =>{
         setCurrentPage(page*dataPerPage)
-    })
+        
+    },[page])
+
+    useEffect(() =>{
+        handleDateData()
+    },[month, transactions])
     
-    const displayResult = transactions.slice(currentPage-10, currentPage);
+    const displayResult = filteredList.slice(currentPage-10, currentPage);
      return(
         <div className={styles.main}>
             <div>
@@ -47,7 +76,8 @@ const DisplayTransactions = () =>{
 
             
             <div className={styles.arrangeInputs}>       
-                <select className={styles.mainInputs}>
+                <select onChange={(e) => setMonth(e.target.value)} className={styles.mainInputs}>
+                <option value="">All Months</option>
                 <option>January</option>
                 <option>February</option>
                 <option>March</option>
@@ -83,7 +113,9 @@ const DisplayTransactions = () =>{
                 <tbody>
                     {displayResult.map((trans, key) => (
                     <tr>
-                        <td>{trans._id}</td>
+                        <td>{trans._id}
+                            {key+1+currentPage-10}
+                        </td>
                         <td>{trans.title}</td>
                         <td className={styles.desc}>{trans.description}</td>
                         <td>{trans.price}</td>
